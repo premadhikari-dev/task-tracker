@@ -3,7 +3,7 @@
 import {useState, useEffect} from 'react';
 import TaskInput from "../components/TaskInput"
 import TaskList from "../components/TaskList"
-import {task} from "../../.next/types/task"
+import {task} from "../types/task"
 
 export default function Home() {
   const [tasks, setTasks] = useState<task[]>([])
@@ -23,6 +23,7 @@ export default function Home() {
     const newTask: task = {
       id: Date.now(),
       title,
+      description: "",
       completed: false,
     }
     setTasks([...tasks, newTask])
