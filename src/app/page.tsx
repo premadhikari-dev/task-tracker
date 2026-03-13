@@ -3,10 +3,10 @@
 import {useState, useEffect} from 'react';
 import TaskInput from "../components/TaskInput"
 import TaskList from "../components/TaskList"
-import {task} from "../types/task"
+import {Task} from "../types/task"
 
 export default function Home() {
-  const [tasks, setTasks] = useState<task[]>([])
+  const [tasks, setTasks] = useState<Task[]>([])
 
   useEffect(() => {
     const storedTasks = localStorage.getItem('tasks')
@@ -20,7 +20,7 @@ export default function Home() {
   }, [tasks])
 
   function addTask(title: string) {
-    const newTask: task = {
+    const newTask: Task = {
       id: Date.now(),
       title,
       description: "",
@@ -29,18 +29,15 @@ export default function Home() {
     setTasks([...tasks, newTask])
   }
   function toggleTask(id: number) {
-    const updatedTasks = tasks.map(task =>
-      task.id === id ? {...task, completed: !task.completed} :task
-    )
-    setTasks(updatedTasks)
+    setTasks(prev => prev.map(t => t.id === id ? { ...t, completed: !t.completed } : t))
   }
+
   function deleteTask(id: number) {
-    const updatedTasks = tasks.filter(task => task.id !== id)
-    setTasks(updatedTasks)
+    setTasks(prev => prev.filter(t => t.id !== id))
   }
   return (
     <main className="max-w-xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Task Tracker</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Task Tracker</h1>
         <TaskInput addTask={addTask} />
         <TaskList 
         tasks={tasks}

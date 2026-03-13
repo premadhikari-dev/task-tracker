@@ -1,4 +1,4 @@
-import {task} from '../types/task'
+import {Task} from '../types/task'
 type Props = {
     task: Task;
     toggleTask: (id: number) => void;
@@ -21,7 +21,7 @@ export default function TaskItem({
             </span>
             <button
             onClick={() => deleteTask(task.id)}
-            className="text red-500">
+            className="text bg-red-500 text-white px-4">
                 Delete
             </button>
         </div>
